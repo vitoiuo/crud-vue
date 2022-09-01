@@ -1,0 +1,22 @@
+{
+  "name": "crud-vue",
+  "version": "1.0.0",
+  "description": "todo list vuejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitoiuo/crud-vue.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitoiuo/crud-vue/issues"
+  },
+  "homepage": "https://github.com/vitoiuo/crud-vue#readme",
+  "dependencies": {
+    "vue-router": "^4.1.5"
+  }
+}

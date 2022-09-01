@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+
+    <!-- Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <!-- Fontawesome 6 CND-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Vue CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+
+</head>
+
+<body>
+    <div id="app">
+        <nav class="orange darken-2">
+            <div class="nav-wrapper"></div>
+        </nav>
+
+        <div class="container">
+            <div class="section">
+                <!--   Icon Section   -->
+                <div class="row">
+                    <div class="col s12 m12" id="elTasks">
+                        <!-- New tasks area-->
+                        <div class="add">
+                            <a class="btn-floating btn-large waves-effect waves-light red" href="taskNew.html"><i class="fa-solid fa-plus"></i></a>
+                        </div>
+                        <div class="col s12 m24">
+                            <h2 class="header">Todo CRUD</h2>
+                            <div class="card horizontal" v-for="(task, index) in tasks">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <p>{{task.title}}</p>
+                                        <span class='project'>{{ task.project }}</span>
+                                        <p>{{ new Date(task.dueTo).toLocaleDateString() }}</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a @click.prevent='editState(index)' href=""><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="" @click.prevent="delTask(task.id)"><i class="fa-solid fa-trash-can"></i></a>
+                                    </div>
+                                    <form action="" v-show="task.showEdit">
+                                        <div class="input-field col s12">
+                                            <input v-model='taskClone.title' placeholder="Title" id="title" type="text" class="validate" required />
+                                            <!-- <label for="title">Title</label> -->
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <select v-model='taskClone.project' id="project" class="project-select">
+                                                <option disabled selected>Choose your option</option>
+                                                <option value="Estudos">Estudos</option>
+                                                <option value="Financeiro">Financeiro</option>
+                                                <option value="Trabalho">Trabalho</option>
+                                            </select>
+                                            <label for="project">Pick a Project</label>
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <input v-model='taskClone.dueTo' type="date" class="" id="dueTo" />
+                                            <label for="dueTo">Date due to</label>
+                                        </div>
+
+                                        <a @click='editTask(task.id,taskClone)' class="waves-effect waves-light btn-large" id="btnSave">Save</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer orange darken-3">
+            <div class="footer-copyright">
+                <div class="container">© 2022 Frontend</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Materialize JavaScript CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems, instances
+            // Initialize select
+            elems = document.querySelectorAll('select')
+            instances = M.FormSelect.init(elems, {})
+            // Initialize data picker
+            elems = document.querySelectorAll('.datepicker')
+            instances = M.Datepicker.init(elems, {})
+        })
+    </script>
+
+    <script src='js/script.js'></script>
+</body>
+
+</html>

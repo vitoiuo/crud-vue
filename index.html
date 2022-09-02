@@ -18,6 +18,8 @@
     <!-- Vue CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -45,7 +47,7 @@
                                 </div>
 
                                 <div class="input-field col s12">
-                                    <select v-model='taskClone.project' id="project">
+                                    <select v-model='taskClone.project' id="project" class="project-select">>
                                         <option value="" disabled selected>Choose your option</option>
                                         <option value="Estudos">Estudos</option>
                                         <option value="Financeiro">Financeiro</option>
@@ -79,13 +81,13 @@
                                         </div>
 
                                         <div class="input-field col s12">
-                                            <select v-model='taskClone.project' id="project" class="project-select">
+                                            <select v-model='taskClone.project' class="project-select">
                                                 <option disabled selected>Choose your option</option>
                                                 <option value="Estudos">Estudos</option>
                                                 <option value="Financeiro">Financeiro</option>
                                                 <option value="Trabalho">Trabalho</option>
                                             </select>
-                                            <label for="project">Pick a Project</label>
+
                                         </div>
 
                                         <div class="input-field col s12">
@@ -114,15 +116,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems, instances
-            // Initialize select
-            elems = document.querySelectorAll('select')
-            instances = M.FormSelect.init(elems, {})
-            // Initialize data picker
-            elems = document.querySelectorAll('.datepicker')
-            instances = M.Datepicker.init(elems, {})
-        })
+
     </script>
 
     <script src='js/script.js'></script>

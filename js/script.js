@@ -12,45 +12,51 @@ let app = new Vue({
     showAdd: false,
   },
   methods: {
-    getTasks() {
-      fetch("http://localhost:3000/tasks")
-        .then((response) => response.json())
-        .then((tasks) => (this.tasks = tasks));
+    async getTasks() {
+      res = await axios.get("http://localhost:3000/tasks");
+      this.tasks = res.data;
     },
     showAddCard() {
+      if (!this.showAdd) {
+        this.tasks.forEach((e, index) => {
+          if (e["showEdit"] === true) {
+            this.showEditCard(index);
+          }
+        });
+      }
       this.showAdd = !this.showAdd;
     },
     addTask() {
       this.taskClone["dueTo"] = new Date(this.taskClone["dueTo"]);
       this.taskClone["dueTo"].setDate(this.taskClone["dueTo"].getDate() + 1);
-      fetch(`http://localhost:3000/tasks`, {
-        method: "POST",
-        body: JSON.stringify(this.taskClone),
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-        },
-      });
+      axios.post(`http://localhost:3000/tasks`, this.taskClone);
     },
     delTask(id) {
-      fetch(`http://localhost:3000/tasks/${id}`, {
-        method: "DELETE",
-      });
+      axios.delete(`http://localhost:3000/tasks/${id}`);
     },
     showEditCard(index) {
       task = this.tasks[index];
       this.taskClone = { ...task };
+
+      this.taskClone["dueTo"] = new Date(this.taskClone["dueTo"]);
+
+      this.taskClone["dueTo"] = this.taskClone["dueTo"]
+        .toLocaleDateString()
+        .split("/")
+        .reverse()
+        .join("-");
+
       task["showEdit"] = !task["showEdit"] ? true : false;
+      if (!task["showEdit"]) {
+        Object.keys(this.taskClone).forEach((e) => (this.taskClone[e] = ""));
+      }
       this.$set(this.tasks, index, task);
     },
     editTask(id, task) {
       delete task["showEdit"];
-      fetch(`http://localhost:3000/tasks/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(task),
-      });
+      task["dueTo"] = new Date(task["dueTo"]);
+      task["dueTo"] = task["dueTo"].setDate(task["dueTo"].getDate() + 1);
+      axios.put(`http://localhost:3000/tasks/${id}`, task);
     },
   },
   computed: {
